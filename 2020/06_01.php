@@ -22,24 +22,15 @@ function get_all_yes($group_string) {
 	$answers_per_person = explode("\n", $group_string);
 	$answers_per_person = array_map("str_split", $answers_per_person);
 	#var_dump($answers_per_person);
-	
-	//unfortunately, PHP doesn't do an intersect on an array of array. Possibly due to avoid type confusion
+
 
 	//special case only one person per group
 	if(count($answers_per_person) == 1) {
 		return $answers_per_person[0];
 	}
 	
-	//special case only two persons per group
-	$common_answers = array_intersect($answers_per_person[0], $answers_per_person[1]);
-	if(count($answers_per_person) == 2) {
-		return $common_answers;
-	}
-
-	//more than three cases
-	for($i = 2; $i < count($answers_per_person); $i++) {
-		$common_answers = array_intersect($answers_per_person[$i], $common_answers);
-	}
+	//unfortunately, intersect on an array of array
+	$common_answers = call_user_func_array('array_intersect', $answers_per_person);
 
 	return $common_answers;
 }
