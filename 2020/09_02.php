@@ -20,11 +20,9 @@ for($i = 0; $i < count($test_case['input']); $i += 1)
 {
 	$sum = 0;
 	$j = $i;
-	do {
+	for($j = $i; $sum < $test_case['target']; $j+= 1) {
 		$sum += $test_case['input'][$j];
-		$j += 1;
-	} while($sum < $test_case['target']);
-	
+	}
 	if($sum == $test_case['target']) {
 		$window = array_slice($test_case['input'], $i, ($j-$i));
 		$smallest = min($window);
