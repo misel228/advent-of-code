@@ -16,7 +16,7 @@ $cube = new \ConwayCubeOfLive($input);
 $cube->draw();
 
 
-for($i = 0; $i < 2; $i += 1) {
+for($i = 0; $i < 6; $i += 1) {
 	$cube->iterate();
 	$cube->draw();
 	var_dump($cube->countActive());
@@ -36,6 +36,7 @@ class ConwayCubeOfLive {
 	public function __construct($input) {
 		$rows = explode("\n", $input);
 		$rows = array_map('trim', $rows);
+		$rows = array_filter($rows);
 		$rows = array_map('str_split', $rows);
 		$this->cube[0] = $rows;
 		
