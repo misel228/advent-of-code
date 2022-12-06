@@ -70,14 +70,17 @@ var_dump(array_sum($points));
 function calc_match_points($match) {
     global $moves_required, $game_action, $game_response, $type_points, $moves, $game_points;
     $result = preg_match("#^([A-C]{1}) ([X-Z]{1})$#", $match, $parsed);
-    
+
     if(!$result) {
         var_dump($match);die();
     }
     $required_move = $moves[$parsed[2]];
-    $points = $game_points[$required_move];
 
-    $points += $type_points[$moves_required[$game_action[$parsed[1]]][$required_move]];
+    $action = $game_action[$parsed[1]];
+    $response = $moves_required[$action][$required_move];
+
+    $points = $game_points[$required_move];
+    $points += $type_points[$response];
     return $points;
 }
 

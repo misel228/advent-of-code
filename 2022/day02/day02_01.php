@@ -59,13 +59,15 @@ var_dump(array_sum($points));
 function calc_match_points($match) {
     global $game_possibilities, $game_action, $game_response, $type_points;
     $result = preg_match("#^([A-C]{1}) ([X-Z]{1})$#", $match, $parsed);
-    
+
     if(!$result) {
         var_dump($match);die();
     }
-    
-    $points = $game_possibilities[$game_action[$parsed[1]]][$game_response[$parsed[2]]];
-    $points += $type_points[$game_response[$parsed[2]]];
+    $action = $game_action[$parsed[1]];
+    $response = $game_response[$parsed[2]];
+
+    $points = $game_possibilities[$action][$response];
+    $points += $type_points[$response];
     return $points;
 }
 
